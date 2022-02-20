@@ -9,11 +9,11 @@
   Copyright Contributors to the Open Mainframe Project's TSTerm Project
 */
 
-import { Exception,Utils } from "./utils.js";
+import { Exception,Utils } from "./Utils";
 import { CharacterAttributes, FieldData, KeyboardMap, RowAndColumn, 
-	 VirtualScreen, OIALine, CharsetInfo, BaseRenderer } from "./generic.js";
-import { ScreenElement, PagedVirtualScreen, PagedRenderer } from "./paged.js";
-import { GraphicsState } from "./graphics.js";
+	 VirtualScreen, OIALine, CharsetInfo, BaseRenderer } from "./Generic";
+import { ScreenElement, PagedVirtualScreen, PagedRenderer } from "./Paged";
+import { GraphicsState } from "./Graphics";
 
 class Ebcdic {
 
@@ -1201,7 +1201,7 @@ export class TN3270EParser{  // minified as ic
 		    this.screen.capabilities.us){ // capability.us is REASON capability
 		    console.log("JOE postLoad header.requestFlag="+header.requestFlag);
 		    if (header.requestFlag == 1){
-			this.screen.responseDisposition.Js = 1;
+			this.screen.responseDisposition = 1;
 		    }
 		    if (header.requestFlag == 2){
 			this.screen.responseDisposition.Zs = 1;
@@ -1629,7 +1629,7 @@ export class TN3270EParser{  // minified as ic
 	    a.partitionID = partitionID; // was a.Ju = i;
 	    a.eraseFirst = eraseFirst;   // a.Zu = e; 
 	    a.resizeProhibited = resizeProhibited; // a.Xu = s;
-	    a.useAlternate = useAlternate; // a.js = u;
+	    a.useAlternate = useAlternate; // a = u;
 	    return a;
 	case TN3270EParser.COMMAND_ERASE_ALL_UNPROTECTED: // 111
         case TN3270EParser.COMMAND_ERASE_ALL_UNPROTECTED_LOCAL:
@@ -2165,7 +2165,7 @@ export class VirtualScreen3270 extends PagedVirtualScreen {   // minified as lc
 		    _s: 2,
 		    replyMode: VirtualScreen3270.REPLY_MODE_FIELD,
 		    Ws: "", Qs: "", Gs: 0 }; 
-	this.usingAlternateSize = false; // minified as this.js = !1;
+	this.usingAlternateSize = false; // minified as this = !1;
 	this.scriptIsRunning = false; // this.Zn = !1; 
 	this.Xn = false; // Xn and Me see to have opposite values in practice
 	this.Me = false; // is it keyboard enablement??
@@ -2349,7 +2349,7 @@ export class VirtualScreen3270 extends PagedVirtualScreen {   // minified as lc
 	t is an anonymous javascript object with { type: "<string>", }
                 typeString is one of "IP_RES", "CONNECTED" "CERT_PROMPT" "3270_HOST_MESSAGE"
 		                     "3270_HOST_MESSAGE" "MESSAGE_BIND_IMAGE" "CERT_REJECT" "ERR"
-                these messages original in terminalProxy.js
+                these messages original in terminalProxy
     */
     dispatchWSMessage(wsJSONMessage:any){ // (lc.prototype.be = function (t) {
 	Utils.messageLogger.debug("Processing websocket message. Type=" + wsJSONMessage.t);
@@ -3138,7 +3138,7 @@ export class VirtualScreen3270 extends PagedVirtualScreen {   // minified as lc
 	    this.showScreen();
             console.log("JOE postLoad respdisp="+JSON.stringify(this.responseDisposition)+
 			" wcc=0x"+Utils.hexString(t.wcc));
-	    if (this.responseDisposition.Zs || this.responseDisposition.Js || (t.wcc & TN3270EParser.WCC_KEYBOARD_RESTORE)){
+	    if (this.responseDisposition.Zs || this.responseDisposition || (t.wcc & TN3270EParser.WCC_KEYBOARD_RESTORE)){
 		/* bit 0x02 in the WCC is keyboard enable bit */
 		console.log("JOE postLoad GOOD");
 		this.doPostLoadStuff();             

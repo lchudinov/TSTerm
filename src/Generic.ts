@@ -9,8 +9,8 @@
   Copyright Contributors to the Open Mainframe Project's TSTerm Project
 */
 
-import { CharacterData } from "./chardata.js";
-import { Utils } from "./utils.js";
+import { CharacterData } from "./CharData";
+import { Utils } from "./Utils";
 
 export class CharacterAttributes {    // minified as No
     constructor(){
@@ -1228,7 +1228,7 @@ export class VirtualScreen {  // all terminal types, minified as ko
 	this.handleCharCodeInput(l);
     }
 
-    // overridden in paged.js, note that lowercase .ji exists
+    // overridden in paged, note that lowercase .ji exists
     handleCharCodeInput(charCode:number):void{ // (ko.prototype.Ji = function (t) {
 	Utils.superClassWarning("handleCharCodeInput");
     }

@@ -10,6 +10,7 @@
 */
 
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: './src/publicApi.ts',
@@ -30,6 +31,10 @@ module.exports = {
   output: {
     filename: 'tsterm.js',
     path: path.resolve(__dirname, 'lib'),
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
   },
 };
 
